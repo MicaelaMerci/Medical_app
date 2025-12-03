@@ -18,12 +18,9 @@ Overview
 
 Preview
 -------
-- Screenshot: the top of this document shows a placeholder image. Replace `assets/screenshot.png` with a screenshot of your running app.
-- Demo video: see the embedded demo below (replace `assets/demo.mp4` with your recorded demo).
+- Demo video:
 
-<video src="assets//videos/Medical_App.mp4" controls style="max-width:100%; height:auto; display:block; margin: 1rem 0;">
-	Your browser does not support the video tag. Alternatively link to the file: `assets/demo.mp4`.
-</video>
+![Demo video:](assets//videos/Medical_App.mp4)
 
 Quickstart (developer)
 ----------------------
@@ -60,11 +57,6 @@ docker build -t health-monitor .
 docker run -p 5000:5000 health-monitor
 ```
 
-API endpoints (selected)
-------------------------
-- `GET /api/metrics` — returns a single simulated data point with anomaly label.
-- `GET /api/history` — returns a small time-series (used by Chart.js in the dashboard).
-
 Project layout
 --------------
 - `src/data/simulate.py` — data simulation utilities
@@ -75,17 +67,6 @@ Project layout
 - `src/app/static/js/dashboard.js` — Chart.js dashboard logic
 - `Dockerfile`, `requirements.txt`, `.gitignore`, `tests/`
 
-Adding your screenshot and demo video
-------------------------------------
-1. Create an `assets/` folder at the project root.
-2. Put a screenshot named `screenshot.png` there (recommended size: 1280×720). Example path: `assets/screenshot.png`.
-3. Put a short demonstration video named `demo.mp4` in `assets/` (10–60 seconds). Example path: `assets/demo.mp4`.
-
-Notes on media
---------------
-- For quick screen capture on Windows, use the built-in Xbox Game Bar (Win+G) or a tool like OBS Studio.
-- Compress the MP4 if large (HandBrake is useful) so Git pushes remain small. Consider storing large media outside the repo and linking to it if needed.
-
 Testing
 -------
 Run the unit tests with `pytest`:
@@ -93,19 +74,3 @@ Run the unit tests with `pytest`:
 ```powershell
 pytest -q
 ```
-
-Security & privacy
-------------------
-This project uses simulated data for demos. If you plan to connect real wearable data:
-- Implement strong authentication and authorization.
-- Store personal data encrypted at rest.
-- Follow GDPR/HIPAA requirements applicable to your deployment and jurisdiction.
-
-Contributing
-------------
-Pull requests are welcome. For significant changes, open an issue first to discuss the change.
-
-License
--------
-This project is provided for educational and prototyping purposes. No license is specified—please add one if you intend to publish or share widely.
-
