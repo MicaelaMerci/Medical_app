@@ -108,3 +108,4 @@ Pull requests are welcome. For significant changes, open an issue first to discu
 License
 -------
 This project is provided for educational and prototyping purposes. No license is specified—please add one if you intend to publish or share widely.
+
