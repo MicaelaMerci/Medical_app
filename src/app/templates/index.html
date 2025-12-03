@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Health Monitor</title>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body { font-family: Arial, sans-serif; padding: 1rem; display: flex; align-items: center; justify-content: center; background: #f7f7f7; }
+      .container { width: 100%; max-width: 960px; padding: 1rem; }
+      .card { border: 1px solid #d5e493; padding: 1.5rem; border-radius: 8px; max-width: 720px; margin: 0 auto; text-align: center; box-shadow: 0 6px 18px rgba(0,0,0,0.08); background: #fff; font-size: 1.05rem; }
+      .card[aria-label="charts"] { max-width: 920px; }
+      canvas { width: 100% !important; height: 260px !important; display: block; }
+      h1 { text-align: center; margin-top: 0; margin-bottom: 0.75rem; font-size: 1.6rem; }
+      .anomaly { color: red; font-weight: bold; }
+      .normal { color: green; font-weight: bold; }
+      /* Make metric values and status larger for readability */
+      #hr, #spo2 { font-size: 1.4rem; font-weight: 700; }
+      #status { font-size: 1.2rem; font-weight: 800; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>AI-Powered Health Monitor</h1>
+      <div class="card">
+        <div><strong>Timestamp:</strong> <span id="ts">-</span></div>
+        <div><strong>Heart rate:</strong> <span id="hr">-</span> bpm</div>
+        <div><strong>Blood oxygen:</strong> <span id="spo2">-</span>%</div>
+        <div><strong>Activity:</strong> <span id="act">-</span></div>
+        <div><strong>Status:</strong> <span id="status">-</span></div>
+      </div>
+
+      <div style="height:24px;"></div>
+
+      <div class="card" aria-label="charts">
+        <canvas id="hrChart" width="700" height="260"></canvas>
+        <div style="height:12px"></div>
+        <canvas id="spo2Chart" width="700" height="260"></canvas>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      async function fetchMetrics() {
+        try {
+          const res = await fetch('/api/metrics');
+          const data = await res.json();
+          document.getElementById('ts').textContent = data.timestamp;
+          document.getElementById('hr').textContent = data.heart_rate;
+          document.getElementById('spo2').textContent = data.blood_oxygen;
+          document.getElementById('act').textContent = data.activity_level;
+          const statusEl = document.getElementById('status');
+          statusEl.textContent = data.status;
+          statusEl.className = data.status === 'Anomaly' ? 'anomaly' : 'normal';
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      // Poll every 2 seconds
+      fetchMetrics();
+      setInterval(fetchMetrics, 2000);
+    </script>
+    <script src="/static/js/dashboard.js"></script>
+  </body>
+</html>
